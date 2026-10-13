@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Планувальник подорожей (Vue 3)</title>
+    <link rel="stylesheet" href="css/style.css">
+    
+    <!-- Підключення Vue 3 через CDN (глобальна збірка для роботи без npm/Vite) -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    
+    <!-- Основний скрипт (завантажується після розбору DOM) -->
+    <script src="js/script.js" defer></script>
+</head>
+<body>
+    <header>
+        <h1>Планувальник подорожей</h1>
+        <nav>
+            <a href="#trips">Мої подорожі</a>
+            <a href="#details">Деталі подорожі</a>
+            <a href="#budget">Бюджет</a>
+        </nav>
+    </header>
+
+    <!-- Головна обгортка для монтування Vue-застосунку -->
+    <div class="page-layout" id="app">
+        <main>
+            <section class="form-section">
+                <h2>Додати нову подорож</h2>
+                <form id="travel-form">
+                    <div class="form-group">
+                        <label for="destination">Пункт призначення:</label>
+                        <input type="text" id="destination" required placeholder="Наприклад: Барселона">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="startDate">Дата початку:</label>
+                        <input type="date" id="startDate" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="endDate">Дата завершення:</label>
+                        <input type="date" id="endDate" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="budget">Загальний бюджет (€):</label>
+                        <input type="number" id="budget" required min="0" placeholder="500">
+                    </div>
+
+                    <div id="cost-per-day-info" class="info-message">
+                        Тривалість: <span id="calculated-days-val">0</span> днів | 
+                        Денний бюджет: <span id="daily-budget-val">0</span> €/день
+                    </div>
+
+                    <button type="submit">Додати подорож</button>
+                </form>
+            </section>
+
+            <!-- Декларативний інтерполяційний вираз Vue -->
+            <p id="trips-count">Всього подорожей: {{ trips.length }}</p>
+
+            <section id="trips">
+                <h2>Мої подорожі</h2>
+                
+                <!-- Контейнер для списку карток -->
+                <div class="cards" id="cards">
+                    <!-- 
+                      ПРАКТИКУМ №11:
+                      - v-for відмальовує відсортовані за датою записи з IndexedDB
+                      - @delete-trip додано для видалення запису з IndexedDB
+                    -->
+                    <trip-card 
+                        v-for="trip in trips" 
+                        :key="trip.id || trip.destination"
+                        :id="trip.id"
+                        :destination="trip.destination"
+                        :days="trip.days"
+                        :budget="trip.budget"
+                        :start-day="trip.startDay"
+                        :end-day="trip.endDay"
+                        :status="trip.status"
+                        :badge-class="trip.badgeClass"
+                        :img-src="trip.imgSrc"
+                        :img-alt="trip.imgAlt"
+                        :is-api-data="trip.isApiData"
+                        :capital="trip.capital"
+                        :population="trip.population"
+                        @select-trip="selectTrip(trip)"
+                        @delete-trip="deleteTrip(trip.id)">
+                    </trip-card>
+                </div>
+
+                <div id="trip-details" class="details-card" :class="{ hidden: !selectedTrip }">
+                    <h3>Деталі обраної подорожі</h3>
+                    <div id="details-content">
+                        <template v-if="selectedTrip">
+                            <p><strong>Пункт призначення:</strong> {{ selectedTrip.destination }}</p>
+                            <p><strong>Дати:</strong> {{ selectedTrip.startDay }} – {{ selectedTrip.endDay }} ({{ selectedTrip.days }} днів)</p>
+                            <p><strong>Загальний бюджет:</strong> €{{ selectedTrip.budget }}</p>
+                            <p><strong>Статус:</strong> {{ selectedTrip.status }}</p>
+                        </template>
+                        <template v-else>
+                            <p>Оберіть подорож зі списку, щоб переглянути деталі.</p>
+                        </template>
+                    </div>
+                </div>
+            </section>
+
+            <section id="details">
+                <h2>Деталі обраної подорожі</h2>
+                <p>Маршрут, заброньовані готелі та список необхідних речей для Парижа.</p> 
+          
+                <form>
+                    <label for="notes">Замітки до поїздки:</label>
+                    <input type="text" id="notes" name="notes" placeholder="Введіть нотатки">
+                </form>
+            </section>
+        </main>
+        
+        <aside id="budget" tabindex="0">
+            <h2>Бюджет подорожі</h2>
+            <div class="budget-amount">1 500 €</div>
+            <ul>
+                <li>Переліт: 200 €</li>
+                <li>Проживання: 800 €</li>
+                <li>Харчування та екскурсії: 500 €</li>
+            </ul>
+        </aside>
+    </div>
+    
+    <footer>
+        <p>&copy; 2026 Навчальний проєкт з ПВЗ. Виконав Кутовенко Ярослав ІП-52.</p>
+    </footer>
+</body>
+</html>

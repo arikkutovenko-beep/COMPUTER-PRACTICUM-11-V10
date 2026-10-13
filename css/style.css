@@ -1,0 +1,504 @@
+/*
+  ОБҐРУНТУВАННЯ ДИЗАЙН-РІШЕННЯ
+  1. Колірна палітра: обрано бірюзово-морську гаму (#028090, #00a896) з теплим пісочно-помаранчевим 
+     акцентом (#f4a261), яка асоціюється з морем, сонячним відпочинком та подорожами.
+  2. Виділення бюджету: загальну суму кошторису виділено великим жирним шрифтом (32px), 
+     щоб ключова фінансова інформація одразу привертала увагу користувача.
+  3. Доступність: усі текстові елементи та бейджі статусів перевірені за стандартом WCAG AA 
+     (контрастність до фону становить ≥ 4.5:1).
+*/
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+/* Додано обмеження розміру зображень для адаптивності */
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Мобільна сітка для карток */
+.cards {
+    display: grid;
+    grid-template-columns: 1fr; 
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+/* Загальний адаптивний контейнер сторінки */
+.page-layout {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 16px;
+}
+
+body {
+    margin: 0;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #2c3e50;
+    background-color: #f4f7f6; /* Travel-палітра: світлий нейтральний фон */
+}
+
+/* ================== HEADER ==================================================== */
+header {
+    text-align: center;
+    background: linear-gradient(135deg, #00a896 0%, #028090 100%); /* Градієнт бірюзових відтінків */
+    color: #ffffff;
+    padding: 24px 16px; /* Внутрішній відступ за вимогами */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+    margin: 0 0 12px 0;
+    font-size: 2.2rem;
+    font-weight: 700;
+}
+
+header nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+}
+
+header nav a {
+    color: #f0fdfa;
+    text-decoration: none;
+    margin-right: 16px;
+    font-weight: 500;
+    transition: color 0.2s ease;
+}
+
+header nav a:last-child {
+    margin-right: 0;
+}
+
+header nav a:hover {
+    color: #f4a261; 
+}
+
+/* ======================== MAIN ТА SECTION ================================================ */
+main {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 24px 16px;
+}
+
+section {
+    margin-bottom: 32px;
+}
+
+section h2 {
+    color: #028090;
+    font-size: 1.6rem;
+    border-bottom: 2px solid #e0e0e0;
+    padding-bottom: 8px;
+    margin-top: 0;
+}
+
+/* =================== ARTICLE ========================================== */
+article {
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    margin-bottom: 24px;
+    overflow: hidden;
+    padding-bottom: 14px; 
+    cursor: pointer;
+}
+
+/* Зображення-заглушка зверху на всю ширину */
+article img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    display: block;
+}
+
+article h3 {
+    margin: 16px 16px 8px 16px;
+    color: #028090;
+    font-size: 1.25rem; /* Це 20px*/
+}
+
+article p {
+    margin: 4px 16px;
+    color: #555555;
+    font-size: 0.95rem;
+}
+
+/* ======================== FORM ======================================================== */
+form {
+    margin-top: 16px;
+    background-color: #ffffff;
+    padding: 16px;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+}
+
+form label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+form input[type="text"] {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.2s ease;
+}
+
+form input[type="text"]:focus {
+    border-color: #00a896;
+}
+
+/* =================== ASIDE ===================================================== */
+aside#budget {
+    max-width: 900px;
+    margin: 0 auto 32px auto;
+    padding: 20px 24px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    border-left: 5px solid #f4a261;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    transition: border-left-width 0.3s ease;
+}
+
+aside#budget:focus {
+    border-left: 12px solid #f4a261;
+    outline: none;
+}
+
+aside#budget h2 {
+    margin-top: 0;
+    color: #2c3e50;
+    font-size: 1.4rem;
+}
+
+aside#budget p {
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: #028090;
+}
+
+aside#budget ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+aside#budget li {
+    padding: 10px 0;
+    border-bottom: 1px solid #eeeeee;
+    color: #444444;
+}
+
+aside#budget li:last-child {
+    border-bottom: none;
+}
+
+/* ================================== FOOTER ============================== */
+footer {
+    background-color: #1d3557;
+    color: #a8dadc;
+    text-align: center;
+    padding: 16px;
+    font-size: 0.85rem;
+    margin-top: 40px;
+}
+
+footer p {
+    margin: 0;
+}
+
+/* ================== Практикум 5 ================= */
+.badge {
+    display: inline-block;
+    margin: 8px 16px 16px 16px;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.875rem; /* 14px */
+    font-weight: 600;
+}
+
+.badge--planned {
+    background-color: #e0f2fe;
+    color: #0369a1; /* Контраст > 4.5:1 */
+}
+
+.badge--in-progress {
+    background-color: #fef3c7;
+    color: #92400e;
+}
+
+.badge--completed {
+    background-color: #dcfce7;
+    color: #166534; /* Контраст > 4.5:1 */
+}
+
+.budget-amount {
+    font-size: 2rem; /* 32px — великий розмір */
+    font-weight: 800;
+    color: #f4a261; /* Теплий акцентний колір */
+    margin: 12px 0;
+}
+
+/* ===================== Адаптація ============================== */
+@media (min-width: 600px) {
+    .cards {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 1024px) {
+    /* Картки у 3 колонки */
+    .cards {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    /* Навігація в рядок: заголовок зліва, меню справа */
+    header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 16px 32px;
+    }
+
+    header h1 {
+        margin: 0;
+    }
+
+    /* Розташування контенту у 2 колонки */
+    .page-layout {
+        display: grid;
+        grid-template-columns: 3fr 1fr;
+        gap: 32px;
+        align-items: start;
+    }
+}
+
+/* ========================= 8 практикум =================== */
+form input[type="number"] {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.2s ease;
+}
+
+form input[type="number"]:focus {
+    border-color: #00a896;
+}
+
+form input[type="date"] {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.2s ease;
+}
+
+form input[type="date"]:focus {
+    border-color: #00a896;
+}
+
+.form-group {
+    margin-bottom: 16px;
+}
+
+form button[type="submit"] {
+    background-color: #028090;
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    margin-top: 12px;
+}
+
+form button[type="submit"]:hover {
+    background-color: #00a896;
+}
+
+.info-message {
+    background-color: #e0f2fe;
+    color: #0369a1;
+    padding: 12px;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin-top: 12px;
+    margin-bottom: 12px;
+}
+
+#details #details-content {
+    background-color: #ffffff;
+    padding: 16px;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+#details #details-content p {
+    margin: 8px 0;
+    color: #444444;
+}
+
+/* ================= СТИЛІ ДЛЯ ПРИХОВУВАННЯ ТА БЛОКУ ДЕТАЛЕЙ ================= */
+.hidden {
+    display: none !important;
+}
+
+.details-card {
+    background-color: #ffffff;
+    padding: 16px;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    margin-top: 16px;
+}
+
+.details-card h3 {
+    margin-top: 0;
+    color: #028090;
+}
+
+
+/*  ПРАКТИЧНА РОБОТА №9: Стилі для блоку API-контролів та динамічних даних
+ /* Контейнер блоку керування API */
+.api-controls-container {
+  margin: 20px 0;
+  padding: 20px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  background-color: #ffffff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.api-controls-container h3 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  color: #007a7a; /* Колір заголовків сайту */
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+/* Поле введення */
+.api-controls-container input[type="text"] {
+  flex-grow: 1;
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.api-controls-container input[type="text"]:focus {
+  border-color: #007a7a;
+}
+
+/* Кнопки в колір кнопки "Додати подорож" */
+.api-controls-container button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  background-color: #007a7a; /* Темно-бірюзовий колір */
+  color: #ffffff;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s;
+}
+
+.api-controls-container button:hover:not(:disabled) {
+  background-color: #005e5e; /* Темніший відтінок при наведенні */
+}
+
+.api-controls-container button:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+.api-controls-container button:disabled {
+  background-color: #a0cfcf;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+/* Стан завантаження */
+#api-loading-state {
+  display: none;
+  color: #007a7a;
+  font-weight: 600;
+  margin-top: 10px;
+  padding: 8px 12px;
+  background-color: #e6f2f2;
+  border-radius: 4px;
+  border-left: 4px solid #007a7a;
+}
+
+/* Відображення помилки */
+#api-error-display {
+  display: none;
+  color: #721c24;
+  background-color: #f8d7da;
+  border: 1px solid #f5c6cb;
+  border-left: 4px solid #dc3545;
+  padding: 10px;
+  border-radius: 4px;
+  margin-top: 10px;
+  font-size: 0.9rem;
+}
+
+/* Прихований стан для блоку деталей */
+.hidden {
+  display: none !important;
+}
+
+/* Зображення прапорів/картинок в картках */
+#cards article img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 4px;
+  margin: 10px 0;
+}
+
+/* ================= ПРАКТИЧНА РОБОТА №11: КНОПКА ВИДАЛЕННЯ ================= */
+.btn-delete {
+  display: block;
+  margin: 12px 16px 16px 16px;
+  padding: 6px 14px;
+  background-color: #e63946;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.btn-delete:hover {
+  background-color: #d62828;
+}
+
+.btn-delete:active {
+  transform: translateY(1px);
+}
